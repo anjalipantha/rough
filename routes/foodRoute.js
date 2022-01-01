@@ -5,7 +5,7 @@ const Product = require("../models/productModel")
 
 //for inserting products
 router.post("/product/insert", auth.verifyCustomer, function(req, res){
-    const fname= req.body.fname;
+    const fname= req.body.fname; 
     const fdesc = req.body.fdesc;
     const fprice= req.body.fprice;
     const userID= req.customerInfo._id;
