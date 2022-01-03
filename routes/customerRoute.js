@@ -84,55 +84,55 @@ router.put("customer/profile/update", auth.verifyCustomer, function (req, res) {
             res.json({ msg: "something went wrong!" })
         })
 })
-// exports.postForgetPassword = (req, res) => {
-//     const email = req.body.email;
-//     console.log("1");
-//     User.findOne({ email: email })
-//         .then((user) => {
-//             console.log("2");
-//             if (!user) {
-//                 console.log("3");
-//                 return res.send({ success: false, message: "email not found" });
-//             }
-//             const { otpCode, otpDate } = generateOTPCode();
-//             user.updateOne({ otpCode: otpCode, otpDate: otpDate }, (err, success) => {
-//                 if (err) {
-//                     console.log("4");
-//                     return res.status(400).json({ error: "otp not send" });
-//                 } else {
-//                     console.log("5");
-//                     user
-//                         .save()
-//                         .then((user) => {
-//                             console.log("6");
-//                             sender
-//                                 .sendMail(
-//                                     prepareOtpMail({ emailId: user.email, otpCode: user.otpCode })
-//                                 )
-//                                 .then(() => {
-//                                     console.log("7");
-//                                     return res.send({
-//                                         success: true,
-//                                         msg: "otp code was generated",
-//                                     });
-//                                 })
-//                                 .catch((e) => {
-//                                     console.log("8");
-//                                     console.log(e);
-//                                 });
-//                         })
-//                         .catch((e) => {
-//                             console.log("9");
-//                             return res.json(e);
-//                         });
-//                 }
-//             });
-//         })
-//         .catch((e) => {
-//             console.log("10");
-//             return res.json(e);
-//         });
-// };
+exports.postForgetPassword = (req, res) => {
+    const email = req.body.email;
+    console.log("1");
+    User.findOne({ email: email })
+        .then((user) => {
+            console.log("2");
+            if (!user) {
+                console.log("3");
+                return res.send({ success: false, message: "email not found" });
+            }
+            const { otpCode, otpDate } = generateOTPCode();
+            user.updateOne({ otpCode: otpCode, otpDate: otpDate }, (err, success) => {
+                if (err) {
+                    console.log("4");
+                    return res.status(400).json({ error: "otp not send" });
+                } else {
+                    console.log("5");
+                    user
+                        .save()
+                        .then((user) => {
+                            console.log("6");
+                            sender
+                                .sendMail(
+                                    prepareOtpMail({ emailId: user.email, otpCode: user.otpCode })
+                                )
+                                .then(() => {
+                                    console.log("7");
+                                    return res.send({
+                                        success: true,
+                                        msg: "otp code was generated",
+                                    });
+                                })
+                                .catch((e) => {
+                                    console.log("8");
+                                    console.log(e);
+                                });
+                        })
+                        .catch((e) => {
+                            console.log("9");
+                            return res.json(e);
+                        });
+                }
+            });
+        })
+        .catch((e) => {
+            console.log("10");
+            return res.json(e);
+        });
+};
 //customer delete by themselves
 // router.delete("/customer/delete", auth.verifyCustomer, function(req, res){
 //     const id = req.customerInfo._id;
